@@ -1,0 +1,26 @@
+{
+  "name": "waveorb-generate",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eldoy/waveorb-generate.git"
+  },
+  "keywords": [],
+  "author": "Vidar Eldøy <vidar@eldoy.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eldoy/waveorb-generate/issues"
+  },
+  "homepage": "https://github.com/eldoy/waveorb-generate#readme",
+  "devDependencies": {
+    "jest": "^25.1.0"
+  },
+  "dependencies": {
+    "pluralize": "^8.0.0"
+  }
+}
