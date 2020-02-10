@@ -21,6 +21,7 @@
     "jest": "^25.1.0"
   },
   "dependencies": {
-    "pluralize": "^8.0.0"
+    "pluralize": "^8.0.0",
+    "shelljs": "^0.8.3"
   }
 }

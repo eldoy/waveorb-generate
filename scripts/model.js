@@ -1,6 +1,8 @@
 // CRUD templates: list, show, new, edit, delete
 // CRUD actions: list, show, create, update, delete, count
 
+const tools = require('../lib/tools.js')
+
 module.exports = async function() {
   const name = process.argv[3]
   if (!name) {
