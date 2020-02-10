@@ -1,30 +1,30 @@
 const actions = {}
 
-actions.create__Name__ = {
+actions.createProject = {
   main: async function($) {
     return await $.app.db.create($.params.values)
   }
 }
 
-actions.update__Name__ = {
+actions.updateProject = {
   main: async function($) {
     return await $.app.db.update($.params.query, $.params.values)
   }
 }
 
-actions.show__Name__ = {
+actions.showProject = {
   main: async function($) {
     return await $.app.db.get($.params.query)
   }
 }
 
-actions.list__Names__ = {
+actions.listProjects = {
   main: async function($) {
     return await $.app.db.find($.params.query)
   }
 }
 
-actions.count__Name__ = {
+actions.countProject = {
   main: async function($) {
     return await $.app.db.find($.params.query)
   }

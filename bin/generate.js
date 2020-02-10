@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const scripts = {
   model: require('../scripts/model.js'),
   login: require('../scripts/login.js'),
