@@ -1,30 +1,30 @@
 const actions = {}
 
-actions.create__Name__ = {
+actions.__name__Create = {
   main: async function($) {
     return await $.app.db.create($.params.values)
   }
 }
 
-actions.update__Name__ = {
+actions.__name__Update = {
   main: async function($) {
     return await $.app.db.update($.params.query, $.params.values)
   }
 }
 
-actions.show__Name__ = {
+actions.__name__Get = {
   main: async function($) {
     return await $.app.db.get($.params.query)
   }
 }
 
-actions.list__Names__ = {
+actions.__name__List = {
   main: async function($) {
     return await $.app.db.find($.params.query)
   }
 }
 
-actions.count__Name__ = {
+actions.__name__Count = {
   main: async function($) {
     return await $.app.db.find($.params.query)
   }
