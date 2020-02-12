@@ -1,6 +1,6 @@
 {
   "name": "waveorb-generate",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Generator for waveorb filters, actions, plugins, routes and templates",
   "main": "index.js",
   "scripts": {
