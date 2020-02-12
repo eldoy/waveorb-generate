@@ -1,0 +1,37 @@
+pages:
+  __name__:
+    list:
+      title: __Name__ list
+      new: New __name__
+      counts: __names__
+      edit: Edit
+      delete: Delete
+      loading: Loading...
+      empty: List is empty
+    details:
+      title: __Name__ details
+      loading: Loading...
+      edit: Edit
+      delete: Delete
+      back: Back to list
+      issue: Something went wrong
+    new:
+      title: New __name__
+      loading: Loading...
+      name: Name
+      submit: Submit
+      cancel: Cancel
+    edit:
+      title: Edit __name__
+      loading: Loading...
+      name: Name
+      submit: Submit
+      cancel: Cancel
+      issue: Something went wrong
+    delete:
+      title: Delete __name__
+      loading: Loading...
+      confirm: Are you sure?
+      submit: Submit
+      cancel: Cancel
+      issue: Something went wrong
