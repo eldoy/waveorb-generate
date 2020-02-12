@@ -12,7 +12,7 @@ module.exports = async function($) {
       `)
     } else {
       html('form', /* html */`
-        <button>${ $.t('pages.project.delete.button') }</button>
+        <button>${ $.t('pages.project.delete.submit') }</button>
         <a href="${
           from === 'project/details'
             ? $.link(`project/details?_id=${ _id }`)
@@ -43,7 +43,7 @@ module.exports = async function($) {
     <h1>${ $.t('pages.project.delete.title') }</h1>
     <p>${ $.t('pages.project.delete.confirm') }</p>
     <form onsubmit="handleDelete(this);return false">
-      ${ $.t('pages.project.edit.loading') }
+      ${ $.t('pages.project.delete.loading') }
     </form>
     <script>${ handleDelete }${ renderForm }renderForm()</script>
   `

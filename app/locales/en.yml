@@ -1,0 +1,37 @@
+pages:
+  project:
+    list:
+      title: Project list
+      new: New project
+      count: projects
+      edit: Edit
+      delete: Delete
+      loading: Loading...
+      empty: List is empty
+    details:
+      title: Project details
+      loading: Loading...
+      edit: Edit
+      delete: Delete
+      back: Back to list
+      issue: Something went wrong
+    new:
+      title: New project
+      loading: Loading...
+      name: Name
+      submit: Submit
+      cancel: Cancel
+    edit:
+      title: Edit project
+      loading: Loading...
+      name: Name
+      submit: Submit
+      cancel: Cancel
+      issue: Something went wrong
+    delete:
+      title: Delete project
+      loading: Loading...
+      confirm: Are you sure?
+      submit: Submit
+      cancel: Cancel
+      issue: Something went wrong

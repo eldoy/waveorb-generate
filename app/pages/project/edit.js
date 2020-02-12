@@ -13,7 +13,7 @@ module.exports = async function($) {
       html('form', /* html */`
         <div>
           <label for="name-input">
-            ${ $.t('pages.project.edit.label.name') }
+            ${ $.t('pages.project.edit.name') }
           </label>
           <input id="name-input" type="text" name="name" value="${ result.name }">
         </div>
@@ -52,6 +52,7 @@ module.exports = async function($) {
   }
 
   return /* html */`
+    <h1>${ $.t('pages.project.edit.title') }</h1>
     <form onsubmit="handleSubmit(this);return false">
       ${ $.t('pages.project.edit.loading') }
     </form>

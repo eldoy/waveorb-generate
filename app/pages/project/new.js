@@ -14,10 +14,11 @@ module.exports = async function($) {
     }
   }
   return /* html */`
+    <h1>${ $.t('pages.project.new.title') }</h1>
     <form onsubmit="handleSubmit(this);return false">
       <div>
         <label for="name-input">
-          ${ $.t('pages.project.new.label.name') }
+          ${ $.t('pages.project.new.name') }
         </label>
         <input id="name-input" type="text" name="name">
       </div>
