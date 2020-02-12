@@ -17,21 +17,12 @@ module.exports = async function() {
 
   tools.rmdir('app')
 
-  tools.mkdir(`app/pages/${name}`)
-  tools.mkdir('app/actions')
-  tools.mkdir('app/layouts')
-  tools.mkdir('app/locales')
-  tools.mkdir('app/plugins')
-  tools.mkdir('app/assets/js')
+  // Move files
+  tools.copyFolder(`templates/model/${type}`, 'app', name)
 
-  // Create pages
-  const names = ['list', 'get', 'new', 'edit', 'delete']
-  names.forEach(function(file) {
-    const page = tools.template(`model/${type}/${file}`, name)
-    tools.write(`app/pages/${name}/${file}.js`, page)
-  })
+  // Rename action
+  tools.rename('app/actions/actions.js', `app/actions/${name}-actions.js`)
 
-  // Create actions
-  console.log(name)
-  tools.write(`app/actions/${name}.js`, tools.template('model/actions', name))
+
+
 }

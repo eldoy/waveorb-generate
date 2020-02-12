@@ -1,4 +1,5 @@
 module.exports = async function($) {
+
   async function renderForm() {
     var params = new URLSearchParams(location.search)
     var _id = params.get('_id')

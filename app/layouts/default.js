@@ -1,4 +1,8 @@
 module.exports = async function($) {
+  const host = $.req.headers['x-waveorb-build']
+    ? 'https://example.com/api'
+    : 'http://localhost:5000'
+
   return /* html */`
     <!doctype html>
     <html lang="${ $.lang }">
@@ -10,7 +14,7 @@ module.exports = async function($) {
         <link rel="icon" type="image/png" href="/img/favicon.png">
         <script src="/js/haka-min.js"></script>
         <script src="/js/waveorb-min.js"></script>
-        <script>window.api = waveorb('http://localhost:5000')</script>
+        <script>window.api = waveorb('${ host }')</script>
       </head>
       <body>
         <div class="main">${ $.page.content }</div>

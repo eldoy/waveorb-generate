@@ -1,4 +1,5 @@
 module.exports = async function($) {
+
   async function handleSubmit(form) {
     var button = q('button', form)
     button.disabled = true
@@ -13,6 +14,7 @@ module.exports = async function($) {
       window.location = $.link('project/list')
     }
   }
+
   return /* html */`
     <h1>${ $.t('pages.project.new.title') }</h1>
     <form onsubmit="handleSubmit(this);return false">

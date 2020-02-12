@@ -3,7 +3,7 @@ pages:
     list:
       title: __Name__ list
       new: New __name__
-      counts: __names__
+      count: __names__
       edit: Edit
       delete: Delete
       loading: Loading...
