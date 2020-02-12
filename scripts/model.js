@@ -15,14 +15,9 @@ module.exports = async function() {
 
   const type = process.argv[4] || 'fullpage'
 
-  tools.rmdir('app')
-
   // Move files
   tools.copyFolder(`templates/model/${type}`, 'app', name)
 
   // Rename action
   tools.rename('app/actions/actions.js', `app/actions/${name}-actions.js`)
-
-
-
 }
