@@ -22,7 +22,7 @@ module.exports = async function($) {
           ${ $.t('pages.project.edit.submit') }
         </button>
         <a href="${
-          from === 'project/details'
+          from === 'details'
             ? $.link(`project/details?_id=${ _id }`)
             : $.link('project/list')}">
           ${ $.t('pages.project.edit.cancel') }
@@ -45,7 +45,7 @@ module.exports = async function($) {
         text(`.${key}-error`, result.values[key].join(', '))
       })
     } else {
-      window.location = from === 'project/details'
+      window.location = from === 'details'
         ? $.link(`project/details?_id=${ _id }`)
         : $.link('project/list')
     }

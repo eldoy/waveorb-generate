@@ -21,7 +21,7 @@ module.exports = async function($) {
         </div>
         <button>${ $.t('pages.project.delete.submit') }</button>
         <a href="${
-          from === 'project/details'
+          from === 'details'
             ? $.link(`project/details?_id=${ _id }`)
             : $.link('project/list')}">
           ${ $.t('pages.project.delete.cancel') }

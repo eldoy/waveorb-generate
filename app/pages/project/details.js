@@ -11,10 +11,10 @@ module.exports = async function($) {
       html('.project-details', /* html */`
         ${ result.name }
         ${ result._id }
-        <a href="${ $.link(`project/edit?_id=${ _id }&from=project/details`) }">
+        <a href="${ $.link(`project/edit?_id=${ _id }&from=details`) }">
           ${ $.t('pages.project.details.edit') }
         </a>
-        <a href="${ $.link(`project/delete?_id=${ _id }&from=project/details`) }">
+        <a href="${ $.link(`project/delete?_id=${ _id }&from=details`) }">
           ${ $.t('pages.project.details.delete') }
         </a>
       `)
