@@ -16,11 +16,18 @@ module.exports = async function($) {
   return /* html */`
     <form onsubmit="handleSubmit(this);return false">
       <div>
-        <label for="name-input">${ $.t('pages.project.new.label.name') }</label>
+        <label for="name-input">
+          ${ $.t('pages.project.new.label.name') }
+        </label>
         <input id="name-input" type="text" name="name">
       </div>
       <div class="error name-error"></div>
-      <button>${ $.t('pages.project.new.submit') }</button>
+      <button>
+        ${ $.t('pages.project.new.submit') }
+      </button>
+      <a href="${ $.link('project/list') }">
+        ${ $.t('pages.project.new.cancel') }
+      </a>
     </form>
     <script>${ handleSubmit }</script>
   `

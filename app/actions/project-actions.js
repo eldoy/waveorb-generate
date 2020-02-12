@@ -1,12 +1,26 @@
 const actions = {}
 
 actions.projectCreate = {
+  validate: {
+    values: {
+      name: {
+        minlength: 3
+      }
+    }
+  },
   main: async function($) {
     return await $.app.db('project').create($.params.values)
   }
 }
 
 actions.projectUpdate = {
+  validate: {
+    values: {
+      name: {
+        minlength: 3
+      }
+    }
+  },
   main: async function($) {
     return await $.app.db('project').update($.params.query, $.params.values)
   }
@@ -18,13 +32,13 @@ actions.projectGet = {
   }
 }
 
-actions.projectList = {
+actions.projectDelete = {
   main: async function($) {
-    return await $.app.db('project').find($.params.query)
+    return await $.app.db('project').delete($.params.query)
   }
 }
 
-actions.projectCount = {
+actions.projectList = {
   main: async function($) {
     return await $.app.db('project').find($.params.query)
   }
