@@ -1,7 +1,7 @@
 {
   "name": "waveorb-generate",
-  "version": "0.0.1",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Generator for waveorb filters, actions, plugins, routes and templates",
   "main": "index.js",
   "scripts": {
     "test": "jest --watch"
