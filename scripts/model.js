@@ -13,12 +13,16 @@ module.exports = async function() {
 
   console.log(`Creating model ${name}...`)
 
-  const type = process.argv[4] || 'standard'
+  const type = process.argv[4] || 'fullpage'
 
-  // tools.rmdir('app')
+  tools.rmdir('app')
 
   tools.mkdir(`app/pages/${name}`)
   tools.mkdir('app/actions')
+  tools.mkdir('app/layouts')
+  tools.mkdir('app/locales')
+  tools.mkdir('app/plugins')
+  tools.mkdir('app/assets/js')
 
   // Create pages
   const names = ['list', 'get', 'new', 'edit', 'delete']
