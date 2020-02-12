@@ -1,7 +1,7 @@
 const tools = require('../lib/tools.js')
 
 module.exports = async function() {
-  const name = process.argv[3]
+  const name = process.argv[4]
   if (!name) {
     console.log([
       `\nModel name is missing.\n`,
@@ -13,7 +13,7 @@ module.exports = async function() {
 
   console.log(`Creating model ${name}...`)
 
-  const type = process.argv[4] || 'fullpage'
+  const type = process.argv[5] || 'fullpage'
 
   // Move files
   tools.copyFolder(`templates/model/${type}`, 'app', name)
