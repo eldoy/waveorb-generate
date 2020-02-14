@@ -4,7 +4,7 @@ module.exports = async function($) {
     var button = q('button', form)
     button.disabled = true
     var values = serialize(form)
-    var result = await api.action('__name__Create', { values })
+    var result = await api.action('create__Name__', { values })
     if (result.error) {
       button.disabled = false
       Object.keys(result.values || {}).forEach(function(key) {
@@ -26,7 +26,7 @@ module.exports = async function($) {
       </div>
       <div class="error name-error"></div>
       <button>
-        ${ $.t('pages.__name__.new.submit') }
+        ${ $.t('pages.__name__.new.create') }
       </button>
       <a href="${ $.link('__name__/list') }">
         ${ $.t('pages.__name__.new.cancel') }

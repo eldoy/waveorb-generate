@@ -1,6 +1,6 @@
 const actions = {}
 
-actions.__name__Create = {
+actions.create__Name__ = {
   validate: {
     values: {
       name: {
@@ -13,7 +13,7 @@ actions.__name__Create = {
   }
 }
 
-actions.__name__Update = {
+actions.update__Name__ = {
   validate: {
     values: {
       name: {
@@ -26,19 +26,19 @@ actions.__name__Update = {
   }
 }
 
-actions.__name__Get = {
+actions.get__Name__ = {
   main: async function($) {
     return await $.app.db('__name__').get($.params.query)
   }
 }
 
-actions.__name__Delete = {
+actions.delete__Name__ = {
   main: async function($) {
     return await $.app.db('__name__').delete($.params.query)
   }
 }
 
-actions.__name__List = {
+actions.list__Name__ = {
   main: async function($) {
     return await $.app.db('__name__').find($.params.query)
   }

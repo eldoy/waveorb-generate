@@ -1,7 +1,7 @@
 module.exports = async function($) {
 
   async function list__Name__() {
-    var __names__ = await api.action('__name__List')
+    var __names__ = await api.action('list__Name__')
     if (__names__.length) {
       html('.__name__-list', /* html */`
         <div>

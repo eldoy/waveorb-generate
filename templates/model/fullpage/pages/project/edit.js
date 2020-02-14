@@ -5,7 +5,7 @@ module.exports = async function($) {
     var _id = params.get('_id')
     var from = params.get('from')
 
-    var result = await api.action('__name__Get', { query: { _id } })
+    var result = await api.action('get__Name__', { query: { _id } })
     if (!result || result.error) {
       html('form', /* html */`
         ${ $.t('pages.__name__.edit.issue') }
@@ -20,7 +20,7 @@ module.exports = async function($) {
         </div>
         <div class="error name-error"></div>
         <button>
-          ${ $.t('pages.__name__.edit.submit') }
+          ${ $.t('pages.__name__.edit.update') }
         </button>
         <a href="${
           from === 'details'
@@ -39,7 +39,7 @@ module.exports = async function($) {
     var _id = params.get('_id')
     var from = params.get('from')
     var values = serialize(form)
-    var result = await api.action('__name__Update', { query: { _id }, values })
+    var result = await api.action('update__Name__', { query: { _id }, values })
     if (result.error) {
       button.disabled = false
       Object.keys(result.values || {}).forEach(function(key) {

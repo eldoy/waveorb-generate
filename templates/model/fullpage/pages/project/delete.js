@@ -5,7 +5,7 @@ module.exports = async function($) {
     var _id = params.get('_id')
     var from = params.get('from')
 
-    var result = await api.action('__name__Get', { query: { _id } })
+    var result = await api.action('get__Name__', { query: { _id } })
     if (!result || result.error) {
       html('form', /* html */`
         ${ $.t('pages.__name__.delete.issue') }
@@ -19,7 +19,7 @@ module.exports = async function($) {
           ${ result.name }
           ${ result._id }
         </div>
-        <button>${ $.t('pages.__name__.delete.submit') }</button>
+        <button>${ $.t('pages.__name__.delete.delete') }</button>
         <a href="${
           from === 'details'
             ? $.link(`__name__/details?_id=${ _id }`)
@@ -35,7 +35,7 @@ module.exports = async function($) {
     button.disabled = true
     var params = new URLSearchParams(location.search)
     var _id = params.get('_id')
-    var result = await api.action('__name__Delete', { query: { _id } })
+    var result = await api.action('delete__Name__', { query: { _id } })
     if (!result || result.error) {
       button.disabled = false
       html('form', /* html */`

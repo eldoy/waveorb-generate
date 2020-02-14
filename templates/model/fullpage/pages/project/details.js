@@ -2,7 +2,7 @@ module.exports = async function($) {
 
   async function render__Name__() {
     var _id = new URLSearchParams(location.search).get('_id')
-    var result = await api.action('__name__Get', { query: { _id } })
+    var result = await api.action('get__Name__', { query: { _id } })
     if (!result || result.error) {
       html('.__name__-details', /* html */`
         ${ $.t('pages.__name__.details.issue') }

@@ -19,19 +19,19 @@ pages:
       title: New __name__
       loading: Loading...
       name: Name
-      submit: Submit
+      create: Create
       cancel: Cancel
     edit:
       title: Edit __name__
       loading: Loading...
       name: Name
-      submit: Submit
+      update: Update
       cancel: Cancel
       issue: Something went wrong
     delete:
       title: Delete __name__
       loading: Loading...
       confirm: Are you sure?
-      submit: Submit
+      delete: Delete
       cancel: Cancel
       issue: Something went wrong
