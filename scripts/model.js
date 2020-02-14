@@ -16,7 +16,11 @@ module.exports = async function() {
   const type = process.argv[5] || 'fullpage'
 
   // Move files
-  tools.copyFolder(tools.path(`templates/model/${type}`), 'app', name)
+  tools.copyFolder(tools.path(`templates/model/${type}`), 'app', name, function(to) {
+    return to.endsWith('/actions.js')
+      ? to.replace('/actions.js', `/${name}-actions.js`)
+      : to
+  })
 
   // Rename action
   tools.rename('app/actions/actions.js', `app/actions/${name}-actions.js`)
