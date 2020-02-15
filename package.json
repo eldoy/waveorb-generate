@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "pluralize": "^8.0.0",
-    "shelljs": "^0.8.3"
+    "shelljs": "^0.8.3",
+    "wmail": "^0.6.2"
   }
 }

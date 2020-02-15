@@ -1,6 +1,8 @@
 const tools = require('./lib/tools.js')
 
-async function model() {
+const scripts = {}
+
+scripts.model = async function() {
   const name = process.argv[4]
   if (!name) {
     console.log([
@@ -28,22 +30,24 @@ async function model() {
   console.log(`\nRun 'npm i mongowave' to make the db plugin work.`)
 }
 
-async function login() {
+scripts.login = async function() {
   console.log(`\nCreating login...`)
 
   // Move files
   tools.copyFolder(tools.path(`templates/login`), 'app')
 
   console.log(`\nRun 'npm i mongowave' to make the db plugin work.`)
+  console.log(`\nRun 'npm i wmail' to make the mail plugin work.`)
 }
 
-async function payment() {
+scripts.payment = async function() {
   console.log(`\nCreating payment...`)
 
   // Move files
   tools.copyFolder(tools.path(`templates/payment`), 'app')
 
   console.log(`\nRun 'npm i stripe' to make the payment plugin work.`)
+  console.log(`\nRun 'npm i wmail' to make the mail plugin work.`)
 }
 
 const script = scripts[process.argv[3] || '']

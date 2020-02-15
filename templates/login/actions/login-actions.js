@@ -4,11 +4,9 @@ actions.createUser = {
   validate: {
     data: {
       email: {
-        required: true,
         is: '$email'
       },
       password: {
-        required: true,
         minlength: 8
       }
     }
@@ -17,11 +15,11 @@ actions.createUser = {
     let { email, password } = $.params.data
     const count = await $.app.db('user').count({ email })
     if (count) {
-      throw Error('user already exists')
+      throw Error($.t('actions.login.signup.user_already_exists'))
     }
     password = $.tools.hash(password)
     const user = await $.app.db('user').create({ email, password })
-    const token = $.tools.uuid()
+    const token = $.tools.cuid()
     await $.app.db('session').create({ user_id: user._id, token })
     return { token }
   }
@@ -109,10 +107,10 @@ actions.createSession = {
     const { email = '', password = '' } = $.params.data
     const user = await $.app.db('user').get({ email })
     if (!user) {
-      throw Error('user not found')
+      throw Error($.t('actions.login.create_session.user_not_found'))
     }
     if (!$.tools.compare(password, user.password)) {
-      throw Error('password is not valid')
+      throw Error($.t('actions.login.create_session.password_not_valid'))
     }
     const token = $.tools.uuid()
     await $.app.db('session').create({ user_id: user._id, token })
@@ -147,7 +145,7 @@ actions.forgotPassword = {
     const { email } = $.params.data
     const user = await $.app.db('user').get({ email })
     if (!user) {
-      throw Error('user not found')
+      throw Error($.t('actions.login.forgot_password.user_not_found'))
     }
     const key = $.tools.uuid()
     const time = new Date().getTime() + 15 * 6e4

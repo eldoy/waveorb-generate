@@ -1,38 +1,48 @@
 module.exports = async function($) {
-  $.page.title = 'Signup'
+  $.page.title = $.t('pages.signup.title')
 
   async function handleSignup(form) {
-    qa('.errors', el => text(el, ''))
+    var button = q('button', form)
+    button.disabled = true
+    qa('.errors', function(el) { text(el, '') })
+    html('.error-message', '')
     var result = await api.action('createUser', { data: serialize(form) })
     if (result.error) {
-      showErrors(result)
+      button.disabled = false
+      html('.error-message', result.error.message)
+      Object.keys(result.data || {}).forEach(function(key) {
+        text(`.${key}-error`, result.data[key].join(', '))
+      })
     } else {
       cookie('token', result.token)
-      cookie('flash', 'Welcome to Waveorb')
-      location = '/sites.html'
+      location = $.link('index')
     }
   }
 
   return /* html */`
-    <h1>Signup</h1>
-    <form class="signup-form" onsubmit="return false">
+    <h1>${ $.t('pages.signup.header') }</h1>
+    <div class="error-message"></div>
+    <form class="signup-form" onsubmit="handleSignup(this);return false">
       <p>
-        <label for="email">Email</label>
+        <label for="email">${ $.t('pages.signup.form.email') }</label>
         <br>
-        <input id="email" name="email" type="text" oninput="clearFields(this)">
-        <span class="errors email-errors"></span>
+        <input id="email" name="email" type="text">
+        <div class="errors email-error"></div>
       </p>
       <p>
-        <label for="password">Password</label>
+        <label for="password">${ $.t('pages.signup.form.password') }</label>
         <br>
-        <input id="password" name="password" type="password" oninput="clearFields(this)">
-        <span class="errors password-errors"></span>
+        <input id="password" name="password" type="password">
+        <div class="errors password-error"></div>
       </p>
       <p>
-        <button onclick="spinner(this, handleSignup)">Sign up</button>
+        <button>${ $.t('pages.signup.form.button') }</button>
       </p>
     </form>
-    <p>Already have an account? <a href="/login.html">Go to login</a></p>
+    <p>
+      ${ $.t('pages.signup.account') }
+      <a href="${ $.link('login') }">${ $.t('pages.signup.login') }</a>
+    </p>
     <script>${ handleSignup }</script>
   `
 }

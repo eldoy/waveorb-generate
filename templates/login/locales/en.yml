@@ -1,0 +1,36 @@
+actions:
+  login:
+    create_user:
+      user_already_exists: user already exists
+    create_session:
+      user_not_found: user not found
+      password_not_valid: password is not valid
+    forgot_password:
+      user_not_found: user not found
+pages:
+  login:
+    title: Login
+    header: Login
+    form:
+      email: Email
+      password: Password
+      button: Log in
+    noaccount: Don't have an account yet?
+    signup: Go to signup
+    forgot: Forgot your password?
+  signup:
+    title: Signup
+    header: Signup
+    form:
+      email: Email
+      password: Password
+      button: Sign up
+    login: Go to login
+    account: Already have an account?
+mails:
+  signup:
+    subject: Signup
+    email: Email
+  reset:
+    subject: Reset password
+    header: Reset password
