@@ -15,7 +15,7 @@ scripts.model = async function() {
 
   console.log(`\nCreating model ${name}...`)
 
-  const type = process.argv[5] || 'fullpage'
+  const type = process.argv[5] || 'full'
 
   // Move files
   tools.copyFolder(tools.path(`templates/model/${type}`), 'app', name, function(to) {
@@ -30,26 +30,6 @@ scripts.model = async function() {
   console.log(`\nRun 'npm i mongowave' to make the db plugin work.`)
 }
 
-scripts.login = async function() {
-  console.log(`\nCreating login...`)
-
-  // Move files
-  tools.copyFolder(tools.path(`templates/login`), 'app')
-
-  console.log(`\nRun 'npm i mongowave' to make the db plugin work.`)
-  console.log(`\nRun 'npm i wmail' to make the mail plugin work.`)
-}
-
-scripts.payment = async function() {
-  console.log(`\nCreating payment...`)
-
-  // Move files
-  tools.copyFolder(tools.path(`templates/payment`), 'app')
-
-  console.log(`\nRun 'npm i stripe' to make the payment plugin work.`)
-  console.log(`\nRun 'npm i wmail' to make the mail plugin work.`)
-}
-
 const script = scripts[process.argv[3] || '']
 if (typeof script !== 'function') {
   console.log([
@@ -61,6 +41,8 @@ if (typeof script !== 'function') {
   ].join('\n'))
   process.exit(1)
 }
+
+// Run selected script
 script()
 
 // Copy shared files

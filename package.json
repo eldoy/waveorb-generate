@@ -1,6 +1,6 @@
 {
   "name": "waveorb-generate",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Generator for waveorb filters, actions, plugins, routes and templates",
   "main": "index.js",
   "scripts": {
@@ -18,12 +18,10 @@
   },
   "homepage": "https://github.com/eldoy/waveorb-generate#readme",
   "devDependencies": {
-    "jest": "^25.1.0",
-    "mongowave": "0.0.1"
+    "jest": "^25.1.0"
   },
   "dependencies": {
     "pluralize": "^8.0.0",
-    "shelljs": "^0.8.3",
-    "wmail": "^0.6.2"
+    "shelljs": "^0.8.3"
   }
 }
