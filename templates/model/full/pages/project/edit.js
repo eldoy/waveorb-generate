@@ -1,9 +1,8 @@
 module.exports = async function($) {
 
   async function renderForm() {
-    var params = new URLSearchParams(location.search)
-    var _id = params.get('_id')
-    var from = params.get('from')
+    var _id = params('_id')
+    var from = params('from')
 
     var result = await api.action('get__Name__', { query: { _id } })
     if (!result || result.error) {
@@ -35,9 +34,8 @@ module.exports = async function($) {
   async function handleSubmit(form) {
     var button = q('button', form)
     button.disabled = true
-    var params = new URLSearchParams(location.search)
-    var _id = params.get('_id')
-    var from = params.get('from')
+    var _id = params('_id')
+    var from = params('from')
     var values = serialize(form)
     var result = await api.action('update__Name__', { query: { _id }, values })
     if (result.error) {

@@ -34,10 +34,7 @@ const script = scripts[process.argv[3] || '']
 if (typeof script !== 'function') {
   console.log([
     `\nUsage: waveorb generate [type] [name]\n`,
-    `Examples:\n`,
-    `waveorb generate model project`,
-    `waveorb generate login`,
-    `waveorb generate payment`
+    `Example: waveorb generate model project\n`,
   ].join('\n'))
   process.exit(1)
 }
