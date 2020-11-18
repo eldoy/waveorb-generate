@@ -16,7 +16,7 @@ scripts.model = async function() {
     process.exit(1)
   }
 
-  console.log(`\nCreating model ${name}...`)
+  console.log(`Creating model '${name}'...`)
 
   tools.copyFolder('templates/model/actions', `app/actions/${name}`)
   tools.copyFolder('templates/model/pages', `app/pages/${name}`)
@@ -34,5 +34,4 @@ if (typeof script !== 'function') {
 // Run selected script
 script()
 
-// Copy shared files
-tools.copyFolder(tools.path(`templates/shared`), 'app')
+console.log('Done!')
