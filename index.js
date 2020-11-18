@@ -20,6 +20,7 @@ scripts.model = async function() {
 
   tools.copyFolder('templates/model/actions', `app/actions/${name}`)
   tools.copyFolder('templates/model/pages', `app/pages/${name}`)
+  tools.copyFolder('templates/model/test', `test/actions/${name}`)
 }
 
 const script = scripts[process.argv[3] || '']
