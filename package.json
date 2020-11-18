@@ -18,10 +18,10 @@
   },
   "homepage": "https://github.com/eldoy/waveorb-generate#readme",
   "devDependencies": {
-    "jest": "^25.1.0"
+    "jest": "^26.6.3"
   },
   "dependencies": {
     "pluralize": "^8.0.0",
-    "shelljs": "^0.8.3"
+    "shelljs": "^0.8.4"
   }
 }
