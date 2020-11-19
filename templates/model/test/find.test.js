@@ -1,4 +1,4 @@
-const { api, db, close, login, data, create, update } = require('../../test-utils.js')
+const { api, db, close, login, data, create, update } = require('../../../test-utils.js')
 
 let $db
 let $token
