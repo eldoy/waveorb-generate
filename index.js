@@ -18,9 +18,9 @@ scripts.model = async function() {
 
   console.log(`Creating model '${name}'...`)
 
-  tools.copyFolder('templates/model/actions', 'app/actions', name)
   tools.copyFolder('templates/model/pages', 'app/pages', name)
-  tools.copyFolder('templates/model/test', 'test/actions', name)
+  tools.copyFolder('templates/model/actions', 'app/actions/v1', name)
+  tools.copyFolder('templates/model/test', 'test/actions/v1', name)
 }
 
 const script = scripts[process.argv[3] || '']
