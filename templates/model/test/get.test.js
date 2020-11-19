@@ -14,16 +14,16 @@ describe('__name__/get', () => {
 
   describe('public', () => {
     it('should get __names__', async () => {
-      await $db('__name__').create({ name: 'Hello' })
-      let result = await api({ action: 'v1/__name__/get' })
+      let id = await $db('__name__').create({ name: 'Hello' })
+      let result = await api({ action: 'v1/__name__/get', query: id })
       expect(result.name).toBe('Hello')
     })
   })
 
   describe('authenticated', () => {
     it('should get __names__', async () => {
-      await $db('__name__').create({ name: 'Hello' })
-      let result = await api({ action: 'v1/__name__/get' }, { headers: { authorization: $token } })
+      let id = await $db('__name__').create({ name: 'Hello' })
+      let result = await api({ action: 'v1/__name__/get', query: id }, { headers: { authorization: $token } })
       expect(result.name).toBe('Hello')
     })
   })
