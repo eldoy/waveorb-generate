@@ -34,7 +34,7 @@ describe('__name__/create', () => {
     })
 
     it('should create a __name__', async () => {
-      let result = await api({ action: 'v1/__name__/create', values: { site_id: data.fakeid, name:'Hello' } }, { headers: { authorization: $token } })
+      let result = await api({ action: 'v1/__name__/create', values: { site_id: data.fakeid, name: 'Hello' } }, { headers: { authorization: $token } })
       expect(result.id).toBeDefined()
 
       let __name__ = await $db('__name__').get({ id: result.id })
