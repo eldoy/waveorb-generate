@@ -1,6 +1,5 @@
 /* update */
 module.exports = {
-  filters: ['authenticate', 'login-required'],
   validate: {
     query: {
       id: {
@@ -10,8 +9,7 @@ module.exports = {
     },
     values: {
       name: {
-        minlength: 3,
-        required: true
+        minlength: 3
       }
     }
   },

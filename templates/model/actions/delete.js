@@ -1,6 +1,5 @@
 /* delete */
 module.exports = {
-  filters: ['authenticate', 'login-required'],
   validate: {
     query: {
       id: {
