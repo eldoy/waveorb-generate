@@ -14,7 +14,7 @@ module.exports = {
     }
   },
   main: async function($) {
-    const { query =  {}, values = {} } = $.params
+    const { query = {}, values = {} } = $.params
     return await $.app.db('__name__').update(query, values)
   }
 }
