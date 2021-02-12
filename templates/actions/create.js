@@ -3,6 +3,7 @@ module.exports = {
   validate: {
     values: {
       name: {
+        minlength: 2,
         required: true
       }
     }

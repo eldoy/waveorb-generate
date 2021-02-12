@@ -9,7 +9,7 @@ module.exports = {
     },
     values: {
       name: {
-        minlength: 3
+        minlength: 2
       }
     }
   },
