@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "extras": "^0.4.0",
-    "pluralize": "^8.0.0",
-    "shelljs": "^0.8.4"
+    "pluralize": "^8.0.0"
   }
 }

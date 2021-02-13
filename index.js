@@ -1,7 +1,9 @@
-const tools = require('./lib/tools.js')
 const path = require('path')
+const extras = require('extras')
+const tools = require('./lib/tools.js')
 
-const GENERATORS = [ 'model', 'actions', 'pages']
+const GENERATORS = ['model', 'actions', 'pages', 'plugin']
+const NEEDS_NAME = ['model', 'actions', 'pages']
 
 const scripts = {}
 
@@ -9,14 +11,12 @@ const type = process.argv[3] || ''
 const name = process.argv[4] || ''
 
 function nameMissing() {
-  if (!name) {
-    console.log([
-      `\n${type[0].toUpperCase() + type.slice(1)} name is missing.\n`,
-      `Usage: waveorb generate ${type} [name]\n`,
-      `Example: waveorb generate ${type} project\n`
-    ].join('\n'))
-    process.exit(1)
-  }
+  console.log([
+    `\n${type[0].toUpperCase() + type.slice(1)} name is missing.\n`,
+    `Usage: waveorb generate ${type} [name]\n`,
+    `Example: waveorb generate ${type} project\n`
+  ].join('\n'))
+  process.exit(1)
 }
 
 scripts.model = function() {
@@ -38,6 +38,17 @@ scripts.pages = function() {
     path.join('app', 'pages', name),
     name
   )
+  scripts.plugin()
+}
+
+scripts.plugin = function() {
+  if (!extras.exist(path.join('app', 'plugins', 'db.js'))) {
+    tools.copyFolder(
+      path.join(__dirname, 'templates', 'plugins', '*'),
+      path.join('app', 'plugins')
+    )
+    extras.run('npm install configdb')
+  }
 }
 
 const script = scripts[type]
@@ -49,7 +60,7 @@ if (typeof script !== 'function') {
   process.exit(1)
 }
 
-if (!name) nameMissing()
+if (!name && NEEDS_NAME.includes(type)) nameMissing()
 
 // Run selected script
 script()
