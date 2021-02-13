@@ -27,7 +27,7 @@ scripts.model = function() {
 scripts.actions = function() {
   tools.copyFolder(
     path.join(__dirname, 'templates', 'actions', '*'),
-    path.join(__dirname, 'app', 'actions', name),
+    path.join('app', 'actions', name),
     name
   )
 }
@@ -35,7 +35,7 @@ scripts.actions = function() {
 scripts.pages = function() {
   tools.copyFolder(
     path.join(__dirname, 'templates', 'pages', '*'),
-    path.join(__dirname, 'app', 'pages', name),
+    path.join('app', 'pages', name),
     name
   )
 }
