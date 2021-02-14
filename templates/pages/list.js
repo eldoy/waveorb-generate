@@ -10,15 +10,17 @@ module.exports = async function($) {
             return /* html */`
               <li>
                 ${esc(item.name)}
-                <a href="${$.link(`__name__/show?__name___id=${item.id}`)}">
-                  Show
-                </a>
-                <a href="${$.link(`__name__/edit?__name___id=${item.id}`)}">
-                  Edit
-                </a>
-                <a href="${$.link(`__name__/delete?__name___id=${item.id}`)}">
-                  Delete
-                </a>
+                <nav>
+                  <a href="${$.link(`__name__/show?__name___id=${item.id}`)}">
+                    Show
+                  </a>
+                  <a href="${$.link(`__name__/edit?__name___id=${item.id}`)}">
+                    Edit
+                  </a>
+                  <a href="${$.link(`__name__/delete?__name___id=${item.id}`)}">
+                    Delete
+                  </a>
+                </nav>
               </li>
             `
           }).join('')}
