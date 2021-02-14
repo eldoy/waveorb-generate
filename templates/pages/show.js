@@ -5,7 +5,7 @@ module.exports = async function($) {
     const item = await api({ action: '__name__/get', query: { id }})
     html('#show', /* html */`
       <h1>__Name__: ${esc(item.name)}</h1>
-      <a href="${$.link(`index`)}">Back to list</a>
+      <a href="${$.link('__name__/list')}">Back to list</a>
     `)
   }
 

@@ -21,7 +21,7 @@ module.exports = async function($) {
       </p>
       <p>
         <button onclick="handleDelete(this)">Delete</button>
-        <a href="${$.link(`index`)}">Cancel</a>
+        <a href="${$.link('__name__/list')}">Cancel</a>
       </p>
     `)
   }

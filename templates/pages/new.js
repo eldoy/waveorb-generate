@@ -23,7 +23,7 @@ module.exports = async function($) {
       </p>
       <p>
         <button onclick="handleSave(this)">Save</button>
-        <a href="${$.link(`index`)}">Cancel</a>
+        <a href="${$.link('__name__/list')}">Cancel</a>
       </p>
     </form>
     <script>
