@@ -7,7 +7,7 @@ module.exports = async function($) {
     var result = await api({ action: '__name__/update', query: { id }, values })
     if (!showErrors(result)) {
       cookie('flash', '__Name__ updated')
-      location = $.link('index')
+      location = $.link('__name__/list')
     }
     btn.disabled = false
   }

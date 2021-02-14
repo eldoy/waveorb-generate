@@ -8,7 +8,7 @@ module.exports = async function($) {
     console.log(result)
     if (!showErrors(result)) {
       cookie('flash', '__Name__ created')
-      location = $.link('index')
+      location = $.link('__name__/list')
     }
     btn.disabled = false
   }
