@@ -8,7 +8,7 @@ module.exports = async function($) {
         ${items.map(item => {
           return /* html */`
             <div class="flex list">
-              ${esc(item.name)}
+              <span>${esc(item.name)}</span>
               <nav>
                 <a href="${$.link(`__name__/show?__name___id=${item.id}`)}">
                   Show
