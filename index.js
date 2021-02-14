@@ -2,8 +2,7 @@ const path = require('path')
 const extras = require('extras')
 const tools = require('./lib/tools.js')
 
-const GENERATORS = ['model', 'actions', 'pages', 'plugin']
-const NEEDS_NAME = ['model', 'actions', 'pages']
+const GENERATORS = ['model', 'actions', 'pages']
 
 const scripts = {}
 
@@ -30,6 +29,16 @@ scripts.actions = function() {
     path.join('app', 'actions', name),
     name
   )
+
+  // Need db plugin to make actions work
+  if (!extras.exist(path.join('app', 'plugins', 'db.js'))) {
+    tools.copyFolder(
+      path.join(__dirname, 'templates', 'plugins', '*'),
+      path.join('app', 'plugins'),
+      name
+    )
+    extras.run('npm install configdb', { silent: true })
+  }
 }
 
 scripts.pages = function() {
@@ -38,29 +47,18 @@ scripts.pages = function() {
     path.join('app', 'pages', name),
     name
   )
-  scripts.plugin()
-}
-
-scripts.plugin = function() {
-  if (!extras.exist(path.join('app', 'plugins', 'db.js'))) {
-    tools.copyFolder(
-      path.join(__dirname, 'templates', 'plugins', '*'),
-      path.join('app', 'plugins')
-    )
-    extras.run('npm install configdb', { silent: true })
-  }
 }
 
 const script = scripts[type]
 if (typeof script !== 'function') {
   console.log([
     `\nUsage: waveorb generate [type] [name]\n`,
-    `Valid types are:\n${GENERATORS.join('  \n')}`
+    `Valid types are:\n\n${GENERATORS.join('  \n')}`
   ].join('\n'))
   process.exit(1)
 }
 
-if (!name && NEEDS_NAME.includes(type)) nameMissing()
+if (!name) nameMissing()
 
 // Run selected script
 script()
