@@ -47,7 +47,7 @@ scripts.plugin = function() {
       path.join(__dirname, 'templates', 'plugins', '*'),
       path.join('app', 'plugins')
     )
-    extras.run('npm install configdb')
+    extras.run('npm install configdb', { silent: true })
   }
 }
 
