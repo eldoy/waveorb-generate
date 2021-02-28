@@ -37,7 +37,7 @@ scripts.actions = function() {
       path.join('app', 'plugins'),
       name
     )
-    extras.run('npm install configdb', { silent: true })
+    extras.run('npm install mongowave', { silent: true })
   }
 }
 

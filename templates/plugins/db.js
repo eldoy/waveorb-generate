@@ -1,6 +1,5 @@
-process.env.CONFIGDB_PATH = '__CONFIGDB_PATH__'
-const db = require('configdb')
+const db = require('mongowave')
 
 module.exports = async function(app) {
-  app.db = db
+  app.db = await db({ name: '__DBNAME__' })
 }
