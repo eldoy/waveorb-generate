@@ -1,40 +1,42 @@
-module.exports = async function($) {
-  $.page.title = 'Edit __name__'
+module.exports = function(name, names, Name, Names) {
+  return `module.exports = async function($) {
+  $.page.title = 'Edit ${name}'
 
   async function handleSave(btn) {
     btn.disabled = true
     var values = serialize(btn.form)
-    var result = await api({ action: '__name__/update', query: { id }, values })
+    var result = await api({ action: '${name}/update', query: { id }, values })
     if (!showErrors(result)) {
-      cookie('flash', '__Name__ updated')
-      location = $.link('__name__/list')
+      cookie('flash', '${Name} updated')
+      location = $.link('${name}/list')
     }
     btn.disabled = false
   }
 
   async function renderForm() {
-    const item = await api({ action: '__name__/get', query: { id }})
-    html('form', /* html */`
+    const item = await api({ action: '${name}/get', query: { id }})
+    html('form', /* html */\`
       <p>
         <label for="name">Name</label>
-        <input id="name" type="text" name="name" value="${esc(item.name)}">
+        <input id="name" type="text" name="name" value="\${esc(item.name)}">
         <em class="name-errors"></em>
       </p>
       <p>
         <button onclick="handleSave(this)">Save</button>
-        <a href="${$.link('__name__/list')}">Cancel</a>
+        <a href="\${$.link('${name}/list')}">Cancel</a>
       </p>
-    `)
+    \`)
   }
 
-  return /* html */`
-    <h1>Edit __name__</h1>
+  return /* html */\`
+    <h1>Edit ${name}</h1>
     <form onsubmit="return false"></form>
     <script>
-      var id = params('__name___id')
-      ${renderForm}
+      var id = params('${name}_id')
+      \${renderForm}
       renderForm()
-      ${handleSave}
+      \${handleSave}
     </script>
-  `
+  \`
+}`
 }

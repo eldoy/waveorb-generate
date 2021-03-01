@@ -1,6 +1,8 @@
 const path = require('path')
-const { exist, mkdir, copy, tree, edit, basext, run } = require('extras')
+const { exist, mkdir, write, basext, run } = require('extras')
 const pluralize = require('pluralize')
+const loader = require('conficurse')
+const templates = loader.load(path.join(__dirname, 'templates'))
 
 const GENERATORS = ['model', 'actions', 'pages']
 
@@ -8,23 +10,6 @@ const scripts = {}
 
 const type = process.argv[3] || ''
 const name = process.argv[4] || ''
-
-function copyFolder(from, to) {
-  if (!exist(to)) mkdir(to)
-  copy(from, to)
-  tree(to).forEach(f => {
-    edit(f, t => {
-      if (!name) return t || ''
-      const plural = pluralize(name)
-      t = t.replace(/__Names__/g, plural[0].toUpperCase() + plural.slice(1))
-      t = t.replace(/__names__/g, plural)
-      t = t.replace(/__Name__/g, name[0].toUpperCase() + name.slice(1))
-      t = t.replace(/__name__/g, name)
-      const [dbname] = basext(process.cwd())
-      return t.replace(/__DBNAME__/g, dbname.replace(/[^a-z-_]/g, ''))
-    })
-  })
-}
 
 function nameMissing() {
   console.log([
@@ -35,32 +20,45 @@ function nameMissing() {
   process.exit(1)
 }
 
+function variants() {
+  const plural = pluralize(name)
+  return [
+    name,
+    plural,
+    name[0].toUpperCase() + name.slice(1),
+    plural[0].toUpperCase() + plural.slice(1)
+  ]
+}
+
 scripts.model = function() {
   scripts.actions()
   scripts.pages()
 }
 
 scripts.actions = function() {
-  copyFolder(
-    path.join(__dirname, 'templates', 'actions', '*'),
-    path.join('app', 'actions', name)
-  )
+  for (const action in templates.actions) {
+    const template = templates.actions[action]
+    const to = path.join('app', 'actions', name)
+    if (!exist(to)) mkdir(to)
+    write(path.join(to, `${action}.js`), template(...variants()))
+  }
 
   // Need db plugin to make actions work
   if (!exist(path.join('app', 'plugins', 'db.js'))) {
-    copyFolder(
-      path.join(__dirname, 'templates', 'plugins', '*'),
-      path.join('app', 'plugins')
-    )
+    const to = path.join('app', 'plugins')
+    if (!exist(to)) mkdir(to)
+    write(path.join(to, `db.js`), templates.plugins.db())
     run('npm install mongowave', { silent: true })
   }
 }
 
 scripts.pages = function() {
-  copyFolder(
-    path.join(__dirname, 'templates', 'pages', '*'),
-    path.join('app', 'pages', name)
-  )
+  for (const page in templates.pages) {
+    const template = templates.pages[page]
+    const to = path.join('app', 'pages', name)
+    if (!exist(to)) mkdir(to)
+    write(path.join(to, `${page}.js`), template(...variants()))
+  }
 }
 
 const script = scripts[type]
