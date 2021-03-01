@@ -1,4 +1,4 @@
-module.exports = function(name) {
+module.exports = function({ name }) {
   return `module.exports = {
   main: async function($) {
     const { query = {} } = $.params

@@ -10,6 +10,13 @@ const scripts = {}
 
 const type = process.argv[3] || ''
 const name = process.argv[4] || ''
+const plural = pluralize(name)
+const args = {
+  name,
+  plural,
+  Name: name[0].toUpperCase() + name.slice(1),
+  Names: plural[0].toUpperCase() + plural.slice(1)
+}
 
 function nameMissing() {
   console.log([
@@ -18,16 +25,6 @@ function nameMissing() {
     `Example: waveorb generate ${type} project\n`
   ].join('\n'))
   process.exit(1)
-}
-
-function variants() {
-  const plural = pluralize(name)
-  return [
-    name,
-    plural,
-    name[0].toUpperCase() + name.slice(1),
-    plural[0].toUpperCase() + plural.slice(1)
-  ]
 }
 
 scripts.model = function() {
@@ -40,14 +37,15 @@ scripts.actions = function() {
     const template = templates.actions[action]
     const to = path.join('app', 'actions', name)
     if (!exist(to)) mkdir(to)
-    write(path.join(to, `${action}.js`), template(...variants()))
+    write(path.join(to, `${action}.js`), template(args))
   }
 
   // Need db plugin to make actions work
   if (!exist(path.join('app', 'plugins', 'db.js'))) {
+    const template = templates.plugins.db
     const to = path.join('app', 'plugins')
     if (!exist(to)) mkdir(to)
-    write(path.join(to, `db.js`), templates.plugins.db())
+    write(path.join(to, `db.js`), template())
     run('npm install mongowave', { silent: true })
   }
 }
@@ -57,7 +55,7 @@ scripts.pages = function() {
     const template = templates.pages[page]
     const to = path.join('app', 'pages', name)
     if (!exist(to)) mkdir(to)
-    write(path.join(to, `${page}.js`), template(...variants()))
+    write(path.join(to, `${page}.js`), template(args))
   }
 }
 

@@ -1,4 +1,4 @@
-module.exports = function(name, names, Name, Names) {
+module.exports = function({ name, names, Name, Names }) {
   return `module.exports = async function($) {
   $.page.title = 'Delete ${name}'
 
