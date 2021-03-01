@@ -1,6 +1,6 @@
 const path = require('path')
-const extras = require('extras')
-const tools = require('./lib/tools.js')
+const { exist, mkdir, copy, tree, edit, basext, run } = require('extras')
+const pluralize = require('pluralize')
 
 const GENERATORS = ['model', 'actions', 'pages']
 
@@ -8,6 +8,23 @@ const scripts = {}
 
 const type = process.argv[3] || ''
 const name = process.argv[4] || ''
+
+function copyFolder(from, to) {
+  if (!exist(to)) mkdir(to)
+  copy(from, to)
+  tree(to).forEach(f => {
+    edit(f, t => {
+      if (!name) return t || ''
+      const plural = pluralize(name)
+      t = t.replace(/__Names__/g, plural[0].toUpperCase() + plural.slice(1))
+      t = t.replace(/__names__/g, plural)
+      t = t.replace(/__Name__/g, name[0].toUpperCase() + name.slice(1))
+      t = t.replace(/__name__/g, name)
+      const [dbname] = basext(process.cwd())
+      return t.replace(/__DBNAME__/g, dbname.replace(/[^a-z-_]/g, ''))
+    })
+  })
+}
 
 function nameMissing() {
   console.log([
@@ -24,28 +41,25 @@ scripts.model = function() {
 }
 
 scripts.actions = function() {
-  tools.copyFolder(
+  copyFolder(
     path.join(__dirname, 'templates', 'actions', '*'),
-    path.join('app', 'actions', name),
-    name
+    path.join('app', 'actions', name)
   )
 
   // Need db plugin to make actions work
-  if (!extras.exist(path.join('app', 'plugins', 'db.js'))) {
-    tools.copyFolder(
+  if (!exist(path.join('app', 'plugins', 'db.js'))) {
+    copyFolder(
       path.join(__dirname, 'templates', 'plugins', '*'),
-      path.join('app', 'plugins'),
-      name
+      path.join('app', 'plugins')
     )
-    extras.run('npm install mongowave', { silent: true })
+    run('npm install mongowave', { silent: true })
   }
 }
 
 scripts.pages = function() {
-  tools.copyFolder(
+  copyFolder(
     path.join(__dirname, 'templates', 'pages', '*'),
-    path.join('app', 'pages', name),
-    name
+    path.join('app', 'pages', name)
   )
 }
 

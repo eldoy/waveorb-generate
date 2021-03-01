@@ -1,4 +1,3 @@
-/* update */
 module.exports = {
   validate: {
     query: {

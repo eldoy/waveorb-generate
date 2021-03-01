@@ -21,7 +21,8 @@
     "jest": "^26.6.3"
   },
   "dependencies": {
-    "extras": "^0.5.0",
+    "extras": "^0.6.1",
+    "mongowave": "^0.1.6",
     "pluralize": "^8.0.0"
   }
 }

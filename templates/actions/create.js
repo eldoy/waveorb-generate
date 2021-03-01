@@ -1,4 +1,3 @@
-/* create */
 module.exports = {
   validate: {
     values: {

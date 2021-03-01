@@ -1,4 +1,3 @@
-/* find */
 module.exports = {
   main: async function($) {
     const { query = {}, fields = {}, sort = {}, skip = 0, limit = 0 } = $.params

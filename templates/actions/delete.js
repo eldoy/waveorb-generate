@@ -1,4 +1,3 @@
-/* delete */
 module.exports = {
   validate: {
     query: {

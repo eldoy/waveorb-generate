@@ -1,4 +1,3 @@
-/* count */
 module.exports = {
   main: async function($) {
     const { query = {} } = $.params
