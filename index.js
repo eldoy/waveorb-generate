@@ -1,5 +1,5 @@
 const path = require('path')
-const { exist, mkdir, write, basext, run } = require('extras')
+const { exist, mkdir, write, basext, run, exit } = require('extras')
 const pluralize = require('pluralize')
 const loader = require('conficurse')
 const templates = loader.load(path.join(__dirname, 'templates'))
@@ -9,7 +9,13 @@ const GENERATORS = ['model', 'actions', 'pages']
 const argv = process.argv.slice(3)
 const [type = '', name = '', ...options] = argv
 
-if (!name) nameMissing()
+if (!name) {
+  exit([
+    `\n${type[0].toUpperCase() + type.slice(1)} name is missing.\n`,
+    `Usage: waveorb generate ${type} [name]\n`,
+    `Example: waveorb generate ${type} project\n`
+  ].join('\n'))
+}
 
 // Extract fields
 const fields = {}
@@ -25,15 +31,6 @@ const data = {
   plural,
   Name: name[0].toUpperCase() + name.slice(1),
   Names: plural[0].toUpperCase() + plural.slice(1)
-}
-
-function nameMissing() {
-  console.log([
-    `\n${type[0].toUpperCase() + type.slice(1)} name is missing.\n`,
-    `Usage: waveorb generate ${type} [name]\n`,
-    `Example: waveorb generate ${type} project\n`
-  ].join('\n'))
-  process.exit(1)
 }
 
 const scripts = {}
@@ -72,11 +69,10 @@ scripts.pages = function() {
 
 const script = scripts[type]
 if (typeof script !== 'function') {
-  console.log([
+  exit([
     `\nUsage: waveorb generate [type] [name]\n`,
     `Valid types are:\n\n${GENERATORS.join('  \n')}`
   ].join('\n'))
-  process.exit(1)
 }
 
 // Run selected script
