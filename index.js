@@ -1,10 +1,10 @@
 const path = require('path')
-const { exist, mkdir, write, basext, run, exit } = require('extras')
+const { exist, mkdir, isDir, dir, read, write, basext, run, exit } = require('extras')
 const pluralize = require('pluralize')
 const loader = require('conficurse')
 const templates = loader.load(path.join(__dirname, 'templates'))
 
-const GENERATORS = ['model', 'actions', 'pages']
+const GENERATORS = ['model', 'actions', 'pages', 'file']
 
 const argv = process.argv.slice(3)
 const [type = '', name = '', ...options] = argv
@@ -17,63 +17,82 @@ if (!name) {
   ].join('\n'))
 }
 
-// Extract fields
-const fields = {}
-options.forEach(opt => {
-  let [key, value] = opt.split(':').map(x => x.trim())
-  fields[key] = value || 'string'
-})
-
-const plural = pluralize(name)
-const data = {
-  name,
-  fields,
-  plural,
-  Name: name[0].toUpperCase() + name.slice(1),
-  Names: plural[0].toUpperCase() + plural.slice(1)
-}
-
-const scripts = {}
-
-scripts.model = function() {
-  scripts.actions()
-  scripts.pages()
-}
-
-scripts.actions = function() {
-  for (const action in templates.actions) {
-    const template = templates.actions[action]
-    const to = path.join('app', 'actions', name)
-    if (!exist(to)) mkdir(to)
-    write(path.join(to, `${action}.js`), template(data))
-  }
-
-  // Need db plugin to make actions work
-  if (!exist(path.join('app', 'plugins', 'db.js'))) {
-    const template = templates.plugins.db
-    const to = path.join('app', 'plugins')
-    if (!exist(to)) mkdir(to)
-    write(path.join(to, `db.js`), template())
-    run('npm install mongowave', { silent: true })
-  }
-}
-
-scripts.pages = function() {
-  for (const page in templates.pages) {
-    const template = templates.pages[page]
-    const to = path.join('app', 'pages', name)
-    if (!exist(to)) mkdir(to)
-    write(path.join(to, `${page}.js`), template(data))
-  }
-}
-
-const script = scripts[type]
-if (typeof script !== 'function') {
+if (!GENERATORS.includes(type)) {
   exit([
-    `\nUsage: waveorb generate [type] [name]\n`,
+    `\nUsage: waveorb generate [type] [name] [fields]\n`,
     `Valid types are:\n\n${GENERATORS.join('  \n')}`
   ].join('\n'))
 }
 
-// Run selected script
-script()
+// Store models here
+let models = []
+
+// Load from file
+if (type == 'file') {
+
+  // Check that all files exist
+  if (!exist(name)) {
+    exit(`File not found!`)
+  }
+
+  function push(file) {
+    const data = read(file)
+    const [base, ext] = basext(file)
+    if (!data.name) data.name = base
+    models.push(data)
+  }
+
+  // Expand dirs to files and merge
+  if (isDir(name)) {
+    dir(name).map(f => path.join(name, f)).forEach(push)
+  } else {
+    push(name)
+  }
+
+} else {
+  const base = name.split('/').reverse()[0]
+  const fields = { name: 'string' }
+  options.forEach(pair => {
+    let [key, value] = pair.split(':').map(x => x.trim())
+    fields[key] = value || 'string'
+  })
+  const plural = pluralize(base)
+  const data = { name, fields }
+  models.push(data)
+}
+
+for (const model of models) {
+  model.plural = model.plural || pluralize(model.name)
+  model.base = model.name.split('/').reverse()[0]
+  model.Name = model.base[0].toUpperCase() + model.base.slice(1)
+  model.Names = model.plural[0].toUpperCase() + model.plural.slice(1)
+
+  if (type != 'page') {
+    // Write actions
+    for (const action in templates.actions) {
+      const template = templates.actions[action]
+      const to = path.join('app', 'actions', model.base)
+      if (!exist(to)) mkdir(to)
+      write(path.join(to, `${action}.js`), template(model))
+    }
+
+    // Need db plugin to make actions work
+    if (!exist(path.join('app', 'plugins', 'db.js'))) {
+      const template = templates.plugins.db
+      const to = path.join('app', 'plugins')
+      if (!exist(to)) mkdir(to)
+      write(path.join(to, `db.js`), template())
+      run('npm install mongowave', { silent: true })
+    }
+  }
+
+  if (type != 'action') {
+    // Write pages
+    for (const page in templates.pages) {
+      const template = templates.pages[page]
+      const to = path.join('app', 'pages', model.base)
+      if (!exist(to)) mkdir(to)
+      write(path.join(to, `${page}.js`), template(model))
+    }
+  }
+}

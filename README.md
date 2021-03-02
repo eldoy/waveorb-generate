@@ -18,7 +18,7 @@ checkbox: hobby:check.digging.coding.boxing
 radio: type:radio.red.strong.blue
 select: meal:select.noodle.meat.soup
 
-In actions use validations
+In actions that use validations
 - required true in create
 
 Nesting is supported by using name with slash:
@@ -45,5 +45,11 @@ fields:
   age: number
   bio: text
   hobby: check.digging.coding.boxing
-  type:radio.red.strong.blue
-  meal:select.noodle.meat.soup
+  type: radio.red.strong.blue
+  meal: select.noodle.meat.soup
+
+Generate from file:
+`waveorb generate file models/project.yml`
+
+Generate all in `models` dir:
+`waveorb generate file models`
