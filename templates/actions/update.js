@@ -1,4 +1,21 @@
-module.exports = function({ base }) {
+module.exports = function({ base, fields }) {
+  function validations() {
+    const entries = Object.entries(fields)
+    if (entries.length) {
+      return `,
+    values: {
+    ${entries.map(([k, v]) => {
+      const f = ['string', 'text'].includes(v)
+        ? 'minlength: 2'
+        : ''
+      return `  ${k}: {
+        ${f}
+      }`
+    }).join(',\n    ')}
+    }`
+    }
+    return ''
+  }
   return `module.exports = {
   validate: {
     query: {
@@ -6,12 +23,7 @@ module.exports = function({ base }) {
         is: '$id',
         required: true
       }
-    },
-    values: {
-      name: {
-        minlength: 2
-      }
-    }
+    }${validations()}
   },
   main: async function($) {
     const { query = {}, values = {} } = $.params
