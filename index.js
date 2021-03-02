@@ -7,13 +7,21 @@ const templates = loader.load(path.join(__dirname, 'templates'))
 const GENERATORS = ['model', 'actions', 'pages']
 
 const argv = process.argv.slice(3)
-const [type = '', name = '', ...fields] = argv
+const [type = '', name = '', ...options] = argv
 
 if (!name) nameMissing()
+
+// Extract fields
+const fields = {}
+options.forEach(opt => {
+  let [key, value] = opt.split(':').map(x => x.trim())
+  fields[key] = value || 'string'
+})
 
 const plural = pluralize(name)
 const data = {
   name,
+  fields,
   plural,
   Name: name[0].toUpperCase() + name.slice(1),
   Names: plural[0].toUpperCase() + plural.slice(1)
