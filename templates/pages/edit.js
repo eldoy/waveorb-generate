@@ -1,4 +1,35 @@
-module.exports = function({ base, Name }) {
+module.exports = function({ base, fields, name, Name }) {
+  const entries = Object.entries(fields)
+
+  function parents() {
+    const trail = name.split('/').slice(0, -1)
+    if (trail.length) {
+      return trail.map(parent => {
+        return `\n      <input type="hidden" name="${parent}_id" value="\${params('${parent}_id')}">\n`
+      }).join('\n')
+    }
+    return ''
+  }
+
+  function inputs() {
+    if (entries.length) {
+      return `${entries.map(([k, v]) => {
+        return `      <p>
+        <label for="${k}">${k[0].toUpperCase() + k.slice(1)}</label>
+        ${function() {
+          if (v == 'text') {
+            return `<textarea id="${k}" name="${k}" oninput="clearErrors(this)">\${esc(item.${k})}</textarea>`
+          } else {
+            return `<input id="${k}" type="${v == 'string' ? 'text' : v}" name="${k}" value="\${esc(item.${k})}" oninput="clearErrors(this)">`
+          }
+        }()}
+        <em class="${k}-errors"></em>
+      </p>`
+      }).join('\n')}`
+    }
+    return ''
+  }
+
   return `module.exports = async function($) {
   $.page.title = 'Edit ${base}'
 
@@ -15,12 +46,7 @@ module.exports = function({ base, Name }) {
 
   async function renderForm() {
     const item = await api({ action: '${base}/get', query: { id }})
-    html('form', /* html */\`
-      <p>
-        <label for="name">Name</label>
-        <input id="name" type="text" name="name" value="\${esc(item.name)}">
-        <em class="name-errors"></em>
-      </p>
+    html('form', /* html */\`${parents()}${inputs()}
       <p>
         <button onclick="handleSave(this)">Save</button>
         <a href="\${$.link('${base}/list')}">Cancel</a>
