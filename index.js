@@ -61,7 +61,6 @@ if (type == 'file') {
   models.push(data)
 }
 
-// console.log(JSON.stringify(models, null, 2))
 
 for (const model of models) {
   model.base = model.name.split('/').reverse()[0]
@@ -70,6 +69,7 @@ for (const model of models) {
   model.Names = model.plural[0].toUpperCase() + model.plural.slice(1)
 
   console.log(JSON.stringify(model, null, 2))
+
   if (type != 'page') {
     // Write actions
     for (const action in templates.actions) {
