@@ -1,12 +1,28 @@
-module.exports = function({ base, Name }) {
+module.exports = function({ base, fields, Name }) {
+  const entries = Object.entries(fields)
+
+  function list() {
+    if (entries.length) {
+      return entries.map(([k, v]) => {
+        return `      \n      <dl>
+        <dt>${k}</dt>
+        <dd>\${esc(item.${k})}</dd>
+      </dl>`
+      }).join('')
+    }
+    return ''
+  }
+
   return `module.exports = async function($) {
   $.page.title = 'Show ${base}'
 
   async function renderShow() {
     const item = await api({ action: '${base}/get', query: { id }})
     html('#show', /* html */\`
-      <h1>${Name}: \${esc(item.name)}</h1>
-      <a href="\${$.link('${base}/list')}">Back to list</a>
+      <h1>${Name}</h1>${list()}
+      <p>
+        <a href="\${$.link('${base}/list')}">Back to list</a>
+      </p>
     \`)
   }
 
