@@ -1,20 +1,20 @@
-module.exports = function({ name, names, Name, Names }) {
+module.exports = function({ base, Name }) {
   return `module.exports = async function($) {
-  $.page.title = 'New ${name}'
+  $.page.title = 'New ${base}'
 
   async function handleSave(btn) {
     btn.disabled = true
     var values = serialize(btn.form)
-    var result = await api({ action: '${name}/create', values })
+    var result = await api({ action: '${base}/create', values })
     if (!showErrors(result)) {
       cookie('flash', '${Name} created')
-      location = $.link('${name}/list')
+      location = $.link('${base}/list')
     }
     btn.disabled = false
   }
 
   return /* html */\`
-    <h1>New ${name}</h1>
+    <h1>New ${base}</h1>
     <form onsubmit="return false">
       <p>
         <label for="name">Name</label>
@@ -23,7 +23,7 @@ module.exports = function({ name, names, Name, Names }) {
       </p>
       <p>
         <button onclick="handleSave(this)">Save</button>
-        <a href="\${$.link('${name}/list')}">Cancel</a>
+        <a href="\${$.link('${base}/list')}">Cancel</a>
       </p>
     </form>
     <script>

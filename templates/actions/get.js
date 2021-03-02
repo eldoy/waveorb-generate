@@ -1,4 +1,4 @@
-module.exports = function({ name }) {
+module.exports = function({ base }) {
   return `module.exports = {
   validate: {
     query: {
@@ -10,7 +10,7 @@ module.exports = function({ name }) {
   },
   main: async function($) {
     const { query = {} } = $.params
-    return await $.app.db('${name}').get(query)
+    return await $.app.db('${base}').get(query)
   }
 }`
 }
