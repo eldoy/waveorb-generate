@@ -56,7 +56,6 @@ if (type == 'file') {
     let [key, value] = pair.split(':').map(x => x.trim())
     fields[key] = value || 'string'
   })
-  const plural = pluralize(base)
   const data = { name, fields }
   models.push(data)
 }

@@ -1,4 +1,7 @@
-module.exports = function({ base, plural, Names }) {
+module.exports = function({ base, plural, fields, Names }) {
+  // Show name, email or id
+  const display = fields.name ? 'name' : fields.email ? 'email' : 'id'
+
   return `module.exports = async function($) {
   $.page.title = '${Names}'
 
@@ -9,7 +12,7 @@ module.exports = function({ base, plural, Names }) {
         \${items.map(item => {
           return /* html */\`
             <div class="flex list">
-              <span>\${esc(item.name)}</span>
+              <span>\${esc(item.${display})}</span>
               <nav>
                 <a href="\${$.link(\`${base}/show?${base}_id=\${item.id}\`)}">
                   Show
