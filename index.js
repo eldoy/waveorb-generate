@@ -6,12 +6,13 @@ const templates = loader.load(path.join(__dirname, 'templates'))
 
 const GENERATORS = ['model', 'actions', 'pages']
 
-const scripts = {}
+const argv = process.argv.slice(3)
+const [type = '', name = '', ...fields] = argv
 
-const type = process.argv[3] || ''
-const name = process.argv[4] || ''
+if (!name) nameMissing()
+
 const plural = pluralize(name)
-const args = {
+const data = {
   name,
   plural,
   Name: name[0].toUpperCase() + name.slice(1),
@@ -27,6 +28,8 @@ function nameMissing() {
   process.exit(1)
 }
 
+const scripts = {}
+
 scripts.model = function() {
   scripts.actions()
   scripts.pages()
@@ -37,7 +40,7 @@ scripts.actions = function() {
     const template = templates.actions[action]
     const to = path.join('app', 'actions', name)
     if (!exist(to)) mkdir(to)
-    write(path.join(to, `${action}.js`), template(args))
+    write(path.join(to, `${action}.js`), template(data))
   }
 
   // Need db plugin to make actions work
@@ -55,7 +58,7 @@ scripts.pages = function() {
     const template = templates.pages[page]
     const to = path.join('app', 'pages', name)
     if (!exist(to)) mkdir(to)
-    write(path.join(to, `${page}.js`), template(args))
+    write(path.join(to, `${page}.js`), template(data))
   }
 }
 
@@ -67,8 +70,6 @@ if (typeof script !== 'function') {
   ].join('\n'))
   process.exit(1)
 }
-
-if (!name) nameMissing()
 
 // Run selected script
 script()
