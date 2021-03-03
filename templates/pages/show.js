@@ -4,7 +4,7 @@ module.exports = function({ base, fields, Name }) {
   function list() {
     if (entries.length) {
       return entries.map(([k, v]) => {
-        return `      \n      <dl>
+        return `\n      <dl>
         <dt>${k}</dt>
         <dd>\${esc(item.${k})}</dd>
       </dl>`
