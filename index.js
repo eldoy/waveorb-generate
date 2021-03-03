@@ -51,7 +51,8 @@ if (type == 'file') {
 
 } else {
   const base = name.split('/').reverse()[0]
-  const fields = { name: 'string' }
+  const fields = {}
+  if (!options.length) fields.name = 'string'
   options.forEach(pair => {
     let [key, value] = pair.split(':').map(x => x.trim())
     fields[key] = value || 'string'
