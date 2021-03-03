@@ -10,34 +10,42 @@ Documentation for the generator is [found here.](https://waveorb.com/doc/command
 
 `waveorb generate model name`
 
-input: name:string
-input: mail:email
-input: age:number (Last part is type)
-textarea: bio:text
-checkbox: hobby:check.digging.coding.boxing
-radio: type:radio.red.strong.blue
-select: meal:select.noodle.meat.soup
+* input - name:string
+* input - mail:email
+* input - age:number (Last part is type)
+* textarea - bio:text
+* checkbox - hobby:check.digging.coding.boxing
+* radio - type:radio.red.strong.blue
+* select - meal:select.noodle.meat.soup
 
-In actions that use validations
-- required true in create
+Minimal validations will be added to actions.
+
+Example:
+```sh
+waveorb generate model project/task name:select.hei.deg hobby:radio.hunting.barbecue affiliation:check.the_party.freedom
+```
+
+The `.`-notation works for select, radio and checkboxes and are the different options.
+
+### Nested resources
 
 Nesting is supported by using name with slash:
 
 `waveorb generate model parent/name`
 `waveorb generate model grandparent/parent/name`
 
-It can be infinitely nested
+It can be infinitely nested.
 
 This adds
 - parent ids to pages
   - in form
   - in url
   - in links
-- parent ids to create action validation
 
-This can be translated to yml added to `models` directory:
+### Generate from file
 
-`project.yml`
+As an example, add a file called `project.yml` to the `models` directory:
+```yml
 name: user/project
 fields:
   name: string
@@ -47,9 +55,12 @@ fields:
   hobby: check.digging.coding.boxing
   type: radio.red.strong.blue
   meal: select.noodle.meat.soup
+```
 
 Generate from file:
 `waveorb generate file models/project.yml`
 
 Generate all in `models` dir:
 `waveorb generate file models`
+
+MIT Licensed. Enjoy!
