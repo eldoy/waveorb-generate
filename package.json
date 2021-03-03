@@ -1,6 +1,6 @@
 {
   "name": "waveorb-generate",
-  "version": "0.6.7",
+  "version": "0.7.0",
   "description": "Generator for waveorb page and action templates",
   "main": "index.js",
   "scripts": {
