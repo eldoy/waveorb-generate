@@ -36,14 +36,14 @@ module.exports = function({ base, fields, name, Name }) {
           } else if (type == 'radio') {
             if (options.length) {
               return options.map(o => {
-                return `<label><input type="radio" name="${k}" value="${o}"\${item.${k} == '${o}' ? ' checked' : ''}> ${cap(o)}<label>`
+                return `<label><input type="radio" name="${k}" value="${o}"\${item.${k} == '${o}' ? ' checked' : ''}> ${cap(o)}</label>`
               }).join('\n        ')
             }
             return ''
           } else if (type == 'checkbox' || type == 'check') {
             if (options.length) {
               return options.map(o => {
-                return `<label><input type="checkbox" name="${k}" value="${o}"\${item.${k}.includes('${o}') ? ' checked' : ''}> ${cap(o)}<label>`
+                return `<label><input type="checkbox" name="${k}" value="${o}"\${item.${k}.includes('${o}') ? ' checked' : ''}> ${cap(o)}</label>`
               }).join('\n        ')
             }
             return ''
