@@ -12,7 +12,7 @@ module.exports = function({ base, fields, name, Name }) {
         return `\n      <input type="hidden" name="${parent}_id" value="\${params('${parent}_id')}">\n`
       }).join('\n')
     }
-    return ''
+    return '\n'
   }
 
   function inputs() {
