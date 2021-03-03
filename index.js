@@ -9,18 +9,18 @@ const GENERATORS = ['model', 'actions', 'pages', 'file']
 const argv = process.argv.slice(3)
 const [type = '', name = '', ...options] = argv
 
+if (!GENERATORS.includes(type)) {
+  exit([
+    `\nUsage: waveorb generate [type] [name] [fields]\n`,
+    `Valid types are:\n\n${GENERATORS.join('  \n')}`
+  ].join('\n'))
+}
+
 if (!name) {
   exit([
     `\n${type[0].toUpperCase() + type.slice(1)} name is missing.\n`,
     `Usage: waveorb generate ${type} [name]\n`,
     `Example: waveorb generate ${type} project\n`
-  ].join('\n'))
-}
-
-if (!GENERATORS.includes(type)) {
-  exit([
-    `\nUsage: waveorb generate [type] [name] [fields]\n`,
-    `Valid types are:\n\n${GENERATORS.join('  \n')}`
   ].join('\n'))
 }
 
