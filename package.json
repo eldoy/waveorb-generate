@@ -23,7 +23,6 @@
   "dependencies": {
     "conficurse": "^0.3.4",
     "extras": "^0.6.1",
-    "mongowave": "^0.1.6",
     "pluralize": "^8.0.0"
   }
 }
