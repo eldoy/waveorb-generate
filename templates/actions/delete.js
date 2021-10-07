@@ -1,16 +1,14 @@
 module.exports = function({ base }) {
-  return `module.exports = {
-  validate: {
+  return `module.exports = async function($) {
+  await $.validate({
     query: {
       id: {
         is: '$id',
         required: true
       }
     }
-  },
-  main: async function($) {
-    const { query = {} } = $.params
-    return await $.app.db('${base}').delete(query)
-  }
+  })
+  const { query = {} } = $.params
+  return await $.app.db('${base}').delete(query)
 }`
 }

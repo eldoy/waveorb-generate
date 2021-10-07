@@ -2,8 +2,7 @@ module.exports = function({ base, fields }) {
   function validations() {
     const entries = Object.entries(fields)
     if (entries.length) {
-      return `
-  validate: {
+      return `await $.validate({
     values: {
     ${entries.map(([k, v]) => {
       const f = ['string', 'text'].includes(v)
@@ -14,15 +13,14 @@ module.exports = function({ base, fields }) {
       }`
     }).join(',\n    ')}
     }
-  },`
+  })`
     }
     return ''
   }
 
-  return `module.exports = {${validations()}
-  main: async function($) {
-    const { values = {} } = $.params
-    return await $.app.db('${base}').create(values)
-  }
+  return `module.exports = async function($) {
+  ${validations()}
+  const { values = {} } = $.params
+  return await $.app.db('${base}').create(values)
 }`
 }

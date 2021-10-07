@@ -5,7 +5,7 @@ module.exports = function() {
 
   return `const db = require('mongowave')
 
-module.exports = async function(app) {
-  app.db = await db({ name: '${dbname}' })
+module.exports = function() {
+  return db({ name: '${dbname}' })
 }`
 }

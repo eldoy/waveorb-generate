@@ -16,18 +16,16 @@ module.exports = function({ base, fields }) {
     }
     return ''
   }
-  return `module.exports = {
-  validate: {
+  return `module.exports = async function($) {
+  await $.validate({
     query: {
       id: {
         is: '$id',
         required: true
       }
     }${validations()}
-  },
-  main: async function($) {
-    const { query = {}, values = {} } = $.params
-    return await $.app.db('${base}').update(query, values)
-  }
+  })
+  const { query = {}, values = {} } = $.params
+  return await $.app.db('${base}').update(query, values)
 }`
 }
