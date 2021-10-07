@@ -21,6 +21,6 @@ module.exports = function({ base, fields }) {
   return `module.exports = async function($) {
   ${validations()}
   const { values = {} } = $.params
-  return await $.app.db('${base}').create(values)
+  return await $.db('${base}').create(values)
 }`
 }

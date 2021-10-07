@@ -26,6 +26,6 @@ module.exports = function({ base, fields }) {
     }${validations()}
   })
   const { query = {}, values = {} } = $.params
-  return await $.app.db('${base}').update(query, values)
+  return await $.db('${base}').update(query, values)
 }`
 }

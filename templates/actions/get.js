@@ -9,6 +9,6 @@ module.exports = function({ base }) {
     }
   })
   const { query = {} } = $.params
-  return await $.app.db('${base}').get(query)
+  return await $.db('${base}').get(query)
 }`
 }
