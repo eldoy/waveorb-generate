@@ -4,7 +4,7 @@ This package is part of the [Waveorb Javascript Jamstack web app development fra
 
 It is used to generate pages and actions for your web app. The files are meant as a starting point for further development.
 
-Documentation for the generator is [found here.](https://waveorb.com/doc/command-line.html#generate)
+Documentation for the generator is [found here.](https://waveorb.com/doc/command-line#generate)
 
 ### Usage
 
