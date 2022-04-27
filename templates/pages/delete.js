@@ -4,7 +4,7 @@ module.exports = function({ base, Name }) {
 
   async function handleDelete(btn) {
     btn.disabled = true
-    var result = await api({ action: '${base}/delete', query: { id } })
+    var result = await api('/${base}/delete', { query: { id } })
     if (result.error) {
       flash(result.error.message)
     } else {
@@ -15,7 +15,7 @@ module.exports = function({ base, Name }) {
   }
 
   async function renderForm() {
-    const item = await api({ action: '${base}/get', query: { id }})
+    const item = await api('/${base}/get', { query: { id } })
     html('form', /* html */\`
       <p>
         Really delete <mark>&rdquo;\${esc(item.name)}&rdquo;</mark>?

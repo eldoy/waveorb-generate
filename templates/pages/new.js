@@ -64,7 +64,7 @@ module.exports = function({ base, fields, name, Name }) {
   async function handleSave(btn) {
     btn.disabled = true
     var values = serialize(btn.form)
-    var result = await api({ action: '${base}/create', values })
+    var result = await api('/${base}/create', { values })
     if (!showErrors(result)) {
       cookie('flash', '${Name} created')
       location = $.link('${base}/list')

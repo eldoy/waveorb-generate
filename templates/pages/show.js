@@ -16,7 +16,7 @@ module.exports = function({ base, fields, Name }) {
   $.page.title = 'Show ${base}'
 
   async function renderShow() {
-    const item = await api({ action: '${base}/get', query: { id }})
+    const item = await api('/${base}/get', { query: { id } })
     html('#show', /* html */\`
       <h1>${Name}</h1>${list()}
       <p>

@@ -6,7 +6,7 @@ module.exports = function({ base, plural, fields, name, Names }) {
   $.page.title = '${Names}'
 
   async function renderList() {
-    var items = await api({ action: '${base}/find' })
+    var items = await api('/${base}/find')
     if (items.length) {
       html('#list', /* html */\`
         \${items.map(item => {

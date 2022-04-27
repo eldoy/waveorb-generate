@@ -64,7 +64,7 @@ module.exports = function({ base, fields, name, Name }) {
   async function handleSave(btn) {
     btn.disabled = true
     var values = serialize(btn.form)
-    var result = await api({ action: '${base}/update', query: { id }, values })
+    var result = await api('/${base}/update', { query: { id }, values })
     if (!showErrors(result)) {
       cookie('flash', '${Name} updated')
       location = $.link('${base}/list')
@@ -73,7 +73,7 @@ module.exports = function({ base, fields, name, Name }) {
   }
 
   async function renderForm() {
-    const item = await api({ action: '${base}/get', query: { id }})
+    const item = await api('/${base}/get', { query: { id } })
     html('form', /* html */\`${parents()}${inputs()}
       <p>
         <button onclick="handleSave(this)">Save</button>
