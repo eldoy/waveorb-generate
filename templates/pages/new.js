@@ -67,7 +67,7 @@ module.exports = function({ base, fields, name, Name }) {
     var result = await api('/${base}/create', { values })
     if (!showErrors(result)) {
       cookie('flash', '${Name} created')
-      location = $.link('${base}/list')
+      location = '/${base}/list'
     }
     btn.disabled = false
   }
@@ -76,7 +76,7 @@ module.exports = function({ base, fields, name, Name }) {
     html('form', /* html */\`${parents()}${inputs()}
       <p>
         <button onclick="handleSave(this)">Save</button>
-        <a href="\${$.link('${base}/list')}">Cancel</a>
+        <a href="/${base}/list">Cancel</a>
       </p>
     \`)
   }

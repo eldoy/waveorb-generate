@@ -9,7 +9,7 @@ module.exports = function({ base, Name }) {
       flash(result.error.message)
     } else {
       cookie('flash', '${Name} deleted')
-      location = $.link('${base}/list')
+      location = '/${base}/list'
     }
     btn.disabled = false
   }
@@ -22,7 +22,7 @@ module.exports = function({ base, Name }) {
       </p>
       <p>
         <button onclick="handleDelete(this)">Delete</button>
-        <a href="\${$.link('${base}/list')}">Cancel</a>
+        <a href="/${base}/list">Cancel</a>
       </p>
     \`)
   }

@@ -20,7 +20,7 @@ module.exports = function({ base, fields, Name }) {
     html('#show', /* html */\`
       <h1>${Name}</h1>${list()}
       <p>
-        <a href="\${$.link('${base}/list')}">Back to list</a>
+        <a href="/${base}/list">Back to list</a>
       </p>
     \`)
   }

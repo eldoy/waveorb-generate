@@ -14,13 +14,13 @@ module.exports = function({ base, plural, fields, name, Names }) {
             <div class="flex list">
               <span>\${esc(item.${display})}</span>
               <nav>
-                <a href="\${$.link(\`${base}/show?${base}_id=\${item.id}\`)}">
+                <a href="\${\`${base}/show?${base}_id=\${item.id}\`}">
                   Show
                 </a>
-                <a href="\${$.link(\`${base}/edit?${base}_id=\${item.id}\`)}">
+                <a href="\${\`${base}/edit?${base}_id=\${item.id}\`}">
                   Edit
                 </a>
-                <a href="\${$.link(\`${base}/delete?${base}_id=\${item.id}\`)}">
+                <a href="\${\`${base}/delete?${base}_id=\${item.id}\`}">
                   Delete
                 </a>
               </nav>
@@ -36,7 +36,7 @@ module.exports = function({ base, plural, fields, name, Names }) {
   return /* html */\`
     <div class="flex">
       <h1>${Names}</h1>
-      <a id="new" href="\${$.link('${base}/new')}">New ${base}</a>
+      <a id="new" href="/${base}/new">New ${base}</a>
     </div>
     <div id="list"></div>
     <script>
