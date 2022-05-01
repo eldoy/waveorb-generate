@@ -6,7 +6,7 @@ module.exports = function({ base, fields }) {
     values: {
     ${entries.map(([k, v]) => {
       const f = ['string', 'text'].includes(v)
-        ? 'minlength: 2'
+        ? 'min: 2'
         : ''
       return `  ${k}: {
         ${f}
