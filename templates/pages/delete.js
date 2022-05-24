@@ -18,7 +18,7 @@ module.exports = function({ base, Name }) {
     const item = await api('/${base}/get', { query: { id } })
     html('form', /* html */\`
       <p>
-        Really delete <mark>&rdquo;\${esc(item.name)}&rdquo;</mark>?
+        Really delete <mark>&rdquo;\${esc(item.id)}&rdquo;</mark>?
       </p>
       <p>
         <button onclick="handleDelete(this)">Delete</button>
