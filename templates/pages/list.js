@@ -14,13 +14,13 @@ module.exports = function({ base, plural, fields, name, Names }) {
             <div class="flex list">
               <span>\${esc(item.${display})}</span>
               <nav>
-                <a href="\${\`${base}/show?${base}_id=\${item.id}\`}">
+                <a href="\${\`/${base}/show?${base}_id=\${item.id}\`}">
                   Show
                 </a>
-                <a href="\${\`${base}/edit?${base}_id=\${item.id}\`}">
+                <a href="\${\`/${base}/edit?${base}_id=\${item.id}\`}">
                   Edit
                 </a>
-                <a href="\${\`${base}/delete?${base}_id=\${item.id}\`}">
+                <a href="\${\`/${base}/delete?${base}_id=\${item.id}\`}">
                   Delete
                 </a>
               </nav>
