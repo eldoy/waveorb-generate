@@ -76,8 +76,9 @@ if (type == 'file') {
 }
 
 function copy(to, file, content) {
+  var filepath = path.join(to, file)
   if (!exist(to)) mkdir(to)
-  write(path.join(to, file), content)
+  write(filepath, content)
 }
 
 for (const model of models) {
@@ -88,6 +89,12 @@ for (const model of models) {
 
   if (['plugin'].includes(type)) {
     if (name == 'net') {
+      if (!exist(path.join('app', 'actions', 'upload', 'create.js'))) {
+        const content = templates.upload.create()
+        const to = path.join('app', 'actions', 'upload')
+        copy(to, `create.js`, content)
+      }
+
       if (!exist(path.join('app', 'plugins', 'net.js'))) {
         const content = templates.plugins.net()
         const to = path.join('app', 'plugins')
