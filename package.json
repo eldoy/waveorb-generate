@@ -10,7 +10,6 @@
     "type": "git",
     "url": "https://github.com/eldoy/waveorb-generate.git"
   },
-  "keywords": [],
   "author": "Vidar Eldøy <vidar@eldoy.com>",
   "license": "MIT",
   "bugs": {
