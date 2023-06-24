@@ -3,7 +3,7 @@ module.exports = function({ base }) {
   await $.validate({
     query: {
       id: {
-        is: '$id',
+        is: 'id',
         required: true
       }
     }

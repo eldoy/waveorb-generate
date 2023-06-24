@@ -1,8 +1,0 @@
-fields:
-  name: string
-  mail: email
-  age: number
-  bio: text
-  hobby: check.digging.coding.boxing
-  type: radio.red.strong.blue
-  meal: select.noodle.meat.soup

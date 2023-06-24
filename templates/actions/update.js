@@ -20,7 +20,7 @@ module.exports = function({ base, fields }) {
   await $.validate({
     query: {
       id: {
-        is: '$id',
+        is: 'id',
         required: true
       }
     }${validations()}
