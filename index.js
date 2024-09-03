@@ -1,15 +1,5 @@
 const path = require('path')
-const {
-  exist,
-  mkdir,
-  isDir,
-  dir,
-  read,
-  write,
-  basext,
-  run,
-  exit
-} = require('extras')
+const extras = require('extras')
 const pluralize = require('pluralize')
 const loader = require('conficurse')
 const templates = loader.load(path.join(__dirname, 'templates'))
@@ -20,7 +10,7 @@ const argv = process.argv.slice(3)
 const [type = '', name = '', ...options] = argv
 
 if (!GENERATORS.includes(type)) {
-  exit(
+  extras.exit(
     [
       `\nUsage: waveorb generate [type] [name] [fields]\n`,
       `Valid types are:\n\n${GENERATORS.join('  \n')}`
@@ -29,7 +19,7 @@ if (!GENERATORS.includes(type)) {
 }
 
 if (!name) {
-  exit(
+  extras.exit(
     [
       `\n${type[0].toUpperCase() + type.slice(1)} name is missing.\n`,
       `Usage: waveorb generate ${type} [name]\n`,
@@ -44,20 +34,21 @@ let models = []
 // Load from file
 if (type == 'file') {
   // Check that all files exist
-  if (!exist(name)) {
-    exit(`File not found!`)
+  if (!extras.exist(name)) {
+    extras.exit(`File not found!`)
   }
 
   function push(file) {
-    const data = read(file)
-    const [base, ext] = basext(file)
+    const data = extras.read(file)
+    const [base, ext] = extras.basext(file)
     if (!data.name) data.name = base
     models.push(data)
   }
 
   // Expand dirs to files and merge
-  if (isDir(name)) {
-    dir(name)
+  if (extras.isDir(name)) {
+    extras
+      .dir(name)
       .map((f) => path.join(name, f))
       .forEach(push)
   } else {
@@ -77,8 +68,10 @@ if (type == 'file') {
 
 function copy(to, file, content) {
   var filepath = path.join(to, file)
-  if (!exist(to)) mkdir(to)
-  write(filepath, content)
+  if (!extras.exist(to)) {
+    extras.exec(`mkdir -p ${to}`)
+  }
+  extras.write(filepath, content)
 }
 
 for (const model of models) {
@@ -89,38 +82,38 @@ for (const model of models) {
 
   if (['plugin'].includes(type)) {
     if (name == 'net') {
-      if (!exist(path.join('app', 'actions', 'upload', 'create.js'))) {
+      if (!extras.exist(path.join('app', 'actions', 'upload', 'create.js'))) {
         const content = templates.upload.create()
         const to = path.join('app', 'actions', 'upload')
         copy(to, `create.js`, content)
       }
 
-      if (!exist(path.join('app', 'plugins', 'net.js'))) {
+      if (!extras.exist(path.join('app', 'plugins', 'net.js'))) {
         const content = templates.plugins.net()
         const to = path.join('app', 'plugins')
         copy(to, `net.js`, content)
       }
 
-      if (!exist(path.join('app', 'config', 'upload.yml'))) {
+      if (!extras.exist(path.join('app', 'config', 'upload.yml'))) {
         const content = templates.config.upload()
         const to = path.join('app', 'config')
         copy(to, `upload.yml`, content)
-        run('npm install dugg', { silent: true })
+        extras.exec('npm install dugg', { silent: true })
       }
     }
 
     if (name == 'db') {
-      if (!exist(path.join('app', 'plugins', 'db.js'))) {
+      if (!extras.exist(path.join('app', 'plugins', 'db.js'))) {
         const content = templates.plugins.db()
         const to = path.join('app', 'plugins')
         copy(to, `db.js`, content)
       }
 
-      if (!exist(path.join('app', 'config', 'db.yml'))) {
+      if (!extras.exist(path.join('app', 'config', 'db.yml'))) {
         const content = templates.config.db()
         const to = path.join('app', 'config')
         copy(to, `db.yml`, content)
-        run('npm install mongowave', { silent: true })
+        extras.exec('npm install mongowave', { silent: true })
       }
     }
   }
@@ -133,18 +126,18 @@ for (const model of models) {
       copy(to, `${action}.js`, content)
     }
 
-    if (!exist(path.join('app', 'config', 'db.yml'))) {
+    if (!extras.exist(path.join('app', 'config', 'db.yml'))) {
       const content = templates.config.db()
       const to = path.join('app', 'config')
       copy(to, `db.yml`, content)
     }
 
     // Need db plugin to make actions work
-    if (!exist(path.join('app', 'plugins', 'db.js'))) {
+    if (!extras.exist(path.join('app', 'plugins', 'db.js'))) {
       const content = templates.plugins.db()
       const to = path.join('app', 'plugins')
       copy(to, `db.js`, content)
-      run('npm install mongowave', { silent: true })
+      extras.exec('npm install mongowave', { silent: true })
     }
   }
 
