@@ -1,13 +1,13 @@
-const path = require('path')
-const extras = require('extras')
-const pluralize = require('pluralize')
-const loader = require('conficurse')
-const templates = loader.load(path.join(__dirname, 'templates'))
+var path = require('path')
+var extras = require('extras')
+var pluralize = require('pluralize')
+var loader = require('conficurse')
+var templates = loader.load(path.join(__dirname, 'templates'))
 
-const GENERATORS = ['model', 'actions', 'pages', 'file', 'plugin']
+var GENERATORS = ['model', 'actions', 'pages', 'file', 'plugin']
 
-const argv = process.argv.slice(3)
-const [type = '', name = '', ...options] = argv
+var argv = process.argv.slice(3)
+var [type = '', name = '', ...options] = argv
 
 if (!GENERATORS.includes(type)) {
   extras.exit(
@@ -29,7 +29,7 @@ if (!name) {
 }
 
 // Store models here
-let models = []
+var models = []
 
 // Load from file
 if (type == 'file') {
@@ -39,8 +39,8 @@ if (type == 'file') {
   }
 
   function push(file) {
-    const data = extras.read(file)
-    const [base, ext] = extras.basext(file)
+    var data = extras.read(file)
+    var [base, ext] = extras.basext(file)
     if (!data.name) data.name = base
     models.push(data)
   }
@@ -55,14 +55,14 @@ if (type == 'file') {
     push(name)
   }
 } else {
-  const base = name.split('/').reverse()[0]
-  const fields = {}
+  var base = name.split('/').reverse()[0]
+  var fields = {}
   if (!options.length) fields.name = 'string'
   options.forEach((pair) => {
-    let [key, value] = pair.split(':').map((x) => x.trim())
+    var [key, value] = pair.split(':').map((x) => x.trim())
     fields[key] = value || 'string'
   })
-  const data = { name, fields }
+  var data = { name, fields }
   models.push(data)
 }
 
@@ -74,7 +74,7 @@ function copy(to, file, content) {
   extras.write(filepath, content)
 }
 
-for (const model of models) {
+for (var model of models) {
   model.base = model.name.split('/').reverse()[0]
   model.plural = model.plural || pluralize(model.base)
   model.Name = model.base[0].toUpperCase() + model.base.slice(1)
@@ -83,20 +83,20 @@ for (const model of models) {
   if (['plugin'].includes(type)) {
     if (name == 'net') {
       if (!extras.exist(path.join('app', 'actions', 'upload', 'create.js'))) {
-        const content = templates.upload.create()
-        const to = path.join('app', 'actions', 'upload')
+        var content = templates.upload.create()
+        var to = path.join('app', 'actions', 'upload')
         copy(to, `create.js`, content)
       }
 
       if (!extras.exist(path.join('app', 'plugins', 'net.js'))) {
-        const content = templates.plugins.net()
-        const to = path.join('app', 'plugins')
+        var content = templates.plugins.net()
+        var to = path.join('app', 'plugins')
         copy(to, `net.js`, content)
       }
 
       if (!extras.exist(path.join('app', 'config', 'upload.yml'))) {
-        const content = templates.config.upload()
-        const to = path.join('app', 'config')
+        var content = templates.config.upload()
+        var to = path.join('app', 'config')
         copy(to, `upload.yml`, content)
         extras.exec('npm install dugg', { silent: true })
       }
@@ -104,14 +104,14 @@ for (const model of models) {
 
     if (name == 'db') {
       if (!extras.exist(path.join('app', 'plugins', 'db.js'))) {
-        const content = templates.plugins.db()
-        const to = path.join('app', 'plugins')
+        var content = templates.plugins.db()
+        var to = path.join('app', 'plugins')
         copy(to, `db.js`, content)
       }
 
       if (!extras.exist(path.join('app', 'config', 'db.yml'))) {
-        const content = templates.config.db()
-        const to = path.join('app', 'config')
+        var content = templates.config.db()
+        var to = path.join('app', 'config')
         copy(to, `db.yml`, content)
         extras.exec('npm install mongowave', { silent: true })
       }
@@ -120,22 +120,22 @@ for (const model of models) {
 
   if (['model', 'actions'].includes(type)) {
     // Write actions
-    for (const action in templates.actions) {
-      const content = templates.actions[action](model)
-      const to = path.join('app', 'actions', model.base)
+    for (var action in templates.actions) {
+      var content = templates.actions[action](model)
+      var to = path.join('app', 'actions', model.base)
       copy(to, `${action}.js`, content)
     }
 
     if (!extras.exist(path.join('app', 'config', 'db.yml'))) {
-      const content = templates.config.db()
-      const to = path.join('app', 'config')
+      var content = templates.config.db()
+      var to = path.join('app', 'config')
       copy(to, `db.yml`, content)
     }
 
     // Need db plugin to make actions work
     if (!extras.exist(path.join('app', 'plugins', 'db.js'))) {
-      const content = templates.plugins.db()
-      const to = path.join('app', 'plugins')
+      var content = templates.plugins.db()
+      var to = path.join('app', 'plugins')
       copy(to, `db.js`, content)
       extras.exec('npm install mongowave', { silent: true })
     }
@@ -143,9 +143,9 @@ for (const model of models) {
 
   if (['model', 'pages'].includes(type)) {
     // Write pages
-    for (const page in templates.pages) {
-      const content = templates.pages[page](model)
-      const to = path.join('app', 'pages', model.base)
+    for (var page in templates.pages) {
+      var content = templates.pages[page](model)
+      var to = path.join('app', 'pages', model.base)
       copy(to, `${page}.js`, content)
     }
   }
